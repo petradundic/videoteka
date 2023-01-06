@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-
+const mongoose = require('mongoose');
 
 const directorModel = new mongoose.Schema(
     {
@@ -10,4 +9,4 @@ const directorModel = new mongoose.Schema(
     }
 );
 
-export const Director = mongoose.model('Director', directorModel); 
+module.exports = mongoose.model('Director', directorModel, 'directors'); 

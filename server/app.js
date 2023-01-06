@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose=require('mongoose');
+const bodyParser = require("body-parser");
 var cors = require('cors');
 const app = express()
 
 
 const port = process.env.PORT || 3000;
 
- mongoose.connect('mongodb://localhost:27017/agilno')
-const db=mongoose.connection
+ mongoose.connect('mongodb://localhost:27017/moviesDB')  // promijenit ime baze!!
+const db = mongoose.connection
 
 db.on('error', (error)=>console.error(error));
 db.once('open', ()=>console.log("Database opened"));
@@ -28,6 +29,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(bodyParser.json({type: 'application/json'}));
 
 app.use(express.json())

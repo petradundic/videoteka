@@ -1,10 +1,17 @@
-const express = require('express')
-const movieRouter = express.Router()
-import { Movie } from "./models/MovieModel.js";
-import { Director } from "./models/DirectorModel.js";
-import { Actor } from "./models/ActorModel.js";
-import { Borrow } from "./models/BorrowModel.js";
-import { ActorMovie } from "./models/ActorMovieModel.js";
+const Movie = require("../models/MovieModel");
+const Director = require("../models/DirectorModel");
+const Actor = require("../models/ActorModel");
+const Borrow = require("../models/BorrowModel");
+const ActorMovie = require("../models/ActorMovieModel");
+const cors = require("cors");
+const express = require('express');
+const movieRouter = express.Router();
+const mongoose = require("mongoose");
+
+const db = mongoose.connect('mongodb://127.0.0.1:27017/chocolatesDB', {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}).then(res=>console.log("Connected!")).catch(err=>console.log("Error", err.message)); // my database collection
+const port = process.env.PORT || 3000
+const base = mongoose.connection;
+
 
 movieRouter.get('/movies'/*, verifyJwt, cors()*/, (req, res)=>{
     console.log("HEEY");
@@ -13,6 +20,7 @@ movieRouter.get('/movies'/*, verifyJwt, cors()*/, (req, res)=>{
             res.send(err.message)
         }
         else{
+            console.log("MOvies: ", movies);
             return res.json({ "movies" : movies})
         }
     })
@@ -425,3 +433,5 @@ movieRouter.put('/updateActorMovies/:id', cors(), (req, res)=>{
             }
         })
 })
+
+module.exports = movieRouter;
