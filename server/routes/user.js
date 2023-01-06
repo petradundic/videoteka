@@ -1,10 +1,11 @@
 const express = require('express')
 const User = require('../models/UsersModel')
-var bodyParser=require('body-parser');
-var jsonParser=bodyParser.json();
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 const router = express.Router()
 const {signJwt, verifyJwt} = require('../jwt');
-
+const bcrypt = require("bcrypt");
+const crypto = require('crypto');
 //getting all
 
 router.get('/', async (req, res) =>{
@@ -31,21 +32,32 @@ router.get('/:id',getUser,async (req,res)=>{
 })
 
 //creating one
-router.post('/register',jsonParser, async (req,res)=>{
-    console.log("register")
-    console.log(req.body)
-    const user=new User({
-    name:req.body.name,
-    surname:req.body.surname,
-    username:req.body.username,
-    email:req.body.email,
-    password:req.body.password,
-    role:req.body.role
-    })
-    await user.save() 
-    res.json(user)
 
-})
+
+router.post('/register', jsonParser, (req, res) => {
+    console.log("heey");
+    console.log("heey");
+    console.log(req.body);
+
+    User.find({email: req.body.email}, function (error, users) { 
+        if (error || users.length > 0) {
+            return res.json({message: "email"});
+        }
+
+        const saltRounds = 10; // definiranje salt vrijednosti 
+        bcrypt.genSalt(saltRounds, function(err, salt) { 
+            bcrypt.hash(req.body.password, salt, function(err, hash) {
+                let user = new User({name: req.body.name, email: req.body.email, password: hash, role: req.body.role});
+                user.save();
+                console.log(hash);
+                return res.json(user);
+            });
+          });
+
+        
+    })
+});
+
 
 router.post('/login',jsonParser,(req, res)=>{
     User.find({email: req.body.email}, function (error, users) { 

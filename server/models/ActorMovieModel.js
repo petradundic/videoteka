@@ -1,4 +1,5 @@
-import  mongoose  from "mongoose";
+const mongoose = require('mongoose');
+const ActorModel = require('./ActorModel');
 
 const actormovieModel = new mongoose.Schema(
     {
@@ -7,4 +8,4 @@ const actormovieModel = new mongoose.Schema(
     }
 )
 
-export const ActorMovie = mongoose.model('ActorMovie', actormovieModel);
+module.exports  = mongoose.model('ActorMovie', actormovieModel, 'actorMovies');
