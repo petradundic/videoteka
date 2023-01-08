@@ -20,6 +20,7 @@ const EditMovie = () => {
     const [message, setMessage] = useState("");
     const [currDirector, setCurrDirector] = useState("");
 
+    console.log(params);
     const [currT, setCurrT] = useState("");
 
     async function getMovie(){
@@ -60,21 +61,21 @@ const EditMovie = () => {
     async function addFormData(e)
       {
         e.preventDefault();
-        if ((name === "") || (genre === "") || (image == "") || (duration === "") || (format === "") || (year === "") || (director === "")){
+        if ((name === "") || (genre === "") || (image == "") || (duration === "") || (format === "") || (year === "") ){
             setIsCorrect(false);
             setMessage("Required input is empty!");
             return;
         }
 
             const json = {
-                "name": name, 
-                "genre": genre,
-                "image": image,
-                "duration": duration,
-                "format": format,
-                "year": year,
-                "oscar": oscar,
-                "director_id": director
+                name: name, 
+                genre: genre,
+                image: image,
+                duration: duration,
+                format: format,
+                year: year,
+                oscar: oscar,
+                director_id: director
             }
 
             const requestOptions = {

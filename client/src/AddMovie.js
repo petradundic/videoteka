@@ -33,7 +33,7 @@ const AddMovie = () => {
 
     async function addFormData(e){
         e.preventDefault();
-        if ((name === "") || (image === "") || (genre == "") || (duration === "") || (format === "") || (year === "") || (director === "")){
+        if ((name === "") || (image === "") || (genre == "") || (duration === "") || (format === "") || (year === "") || (director === "") ){
             setIsCorrect(false);
             setMessage("Required input is empty!");
             return;

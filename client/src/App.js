@@ -17,7 +17,8 @@ import EditMovie from './EditMovie';
 import Movie from './Movie';
 import Home from './Home';
 import MovieDetails from './MovieDetails';
-
+import EditUser from './EditUser';
+import AdminHome from './AdminHome';
 function App() {
   return (
     <Router>
@@ -31,8 +32,10 @@ function App() {
             <Route path="/editDirector/:id" element={<EditDirector />} />
             <Route path="/editMovie/:id" element={<EditMovie />} />
             <Route path="/" element={<Home />} />
-            <Route path="/movies" element={<Movie />} />
+            <Route path=" " element={<Movie />} />
             <Route path="/details/:id" element={<MovieDetails />} />
+            <Route path="/EditUser/:id" element={<EditUser />} />
+            <Route path="/AdminHome" element={<AdminHome />} />
           </Routes>
         </Router>
   );

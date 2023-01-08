@@ -7,7 +7,7 @@ const app = express()
 
 const port = process.env.PORT || 3000;
 
- mongoose.connect('mongodb://localhost:27017/moviesDB')  // promijenit ime baze!!
+ mongoose.connect('mongodb://localhost:27017/agilno')  // promijenit ime baze!!
 const db = mongoose.connection
 
 db.on('error', (error)=>console.error(error));

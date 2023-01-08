@@ -1,11 +1,15 @@
 import React, {useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Navigate, useLocation,useNavigate } from 'react-router'
+
 
 const MovieDetails = () => {
     const params = useParams();
     const [director, setDirector] = useState("");
     const [movie, setMovie] = useState("");
+    const navigate=useNavigate();
+    console.log("params",params);
 
     if (localStorage.getItem("token") === null){
         window.location.href = '/login'; // ako nema tokena vratit korisnika na prijavu
@@ -37,7 +41,7 @@ const MovieDetails = () => {
         <div className="container justify-content-center">
             <div className="row border rounded rounded">
             <div className="col-5 m-6 p-4">
-            <p><b>Product: </b>{movie.name}</p>
+            <p><b>Name: </b>{movie.name}</p>
             <p><b>Genre: </b>{movie.genre}</p>
             <p><b>Duration: </b>{movie.duration}</p>
             <p><b>Format: </b>{movie.format}</p>
@@ -51,6 +55,7 @@ const MovieDetails = () => {
             <img src={movie.image} class="mw-100 mh-100"/><br/>
             </div>
             </div>
+            <button onClick={()=>navigate(`/editMovie/${params.id}`)} className="btn btn-success btn-sm">Edit</button>
         </div>
     )
 }

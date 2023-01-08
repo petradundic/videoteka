@@ -8,7 +8,7 @@ const express = require('express');
 const movieRouter = express.Router();
 const mongoose = require("mongoose");
 
-const db = mongoose.connect('mongodb://127.0.0.1:27017/chocolatesDB', {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}).then(res=>console.log("Connected!")).catch(err=>console.log("Error", err.message)); // my database collection
+const db = mongoose.connect('mongodb://127.0.0.1:27017/agilno', {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}).then(res=>console.log("Connected!")).catch(err=>console.log("Error", err.message)); // my database collection
 const port = process.env.PORT || 3000
 const base = mongoose.connection;
 

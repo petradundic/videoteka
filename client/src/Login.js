@@ -34,6 +34,8 @@ const Login = () =>{
             if (data.accessToken) {
                 setIsCorrect(true);
                 localStorage.setItem("token", data.accessToken);
+                localStorage.setItem("_id",data.user_id);
+                localStorage.setItem("role",data.user_role);
                 const myuser = JSON.stringify({
                     id: data.user_id,
                     name: data.user_name,

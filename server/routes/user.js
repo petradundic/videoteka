@@ -6,9 +6,10 @@ const router = express.Router()
 const {signJwt, verifyJwt} = require('../jwt');
 const bcrypt = require("bcrypt");
 const crypto = require('crypto');
+const cors = require("cors");
 //getting all
 
-router.get('/', async (req, res) =>{
+router.get('/users', async (req, res) =>{
     try {
         const users=await User.find()
         console.log(users)
@@ -20,15 +21,37 @@ router.get('/', async (req, res) =>{
 })
 //getting one
 
-router.get('/:id',getUser,async (req,res)=>{
-    try {
-        const user=await User.findById(req.params.id)
-        console.log(req.params.id)
-        res.json(user)
+router.get('/user/:id'/*, verifyJwt*/, cors(), (req, res)=>{
+    User.findById(req.params.id, (err, user)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            return res.json(user)
+        }
+    })
+})
+
+router.put('/updateUser/:id', cors(), (req, res)=>{
+        const saltRounds = 10; // definiranje salt vrijednosti 
+        bcrypt.genSalt(saltRounds, function(err, salt) { 
+        bcrypt.hash(req.body.password, salt, function(err, hash) {
+            //let user = new User({name: req.body.name, surname: req.body.surname, username: req.body.username, email: req.body.email, password: hash, role: req.body.role});
+            newUser = {name: req.body.name, surname: req.body.surname, username: req.body.username, email: req.body.email, password: hash, role: "user"}
+            console.log(newUser);
+            User.findOneAndUpdate({_id:req.params.id}, newUser, (err, userNew)=>{
+                if(err){
+                    return res.json({error: "can't add"})
+                }
+                else{
+                    return res.json({success: "added"})
+                }
+            })
+            
+            
+        });
+      });
         
-    } catch (error) {
-        res.status(500).json({message:error.message})        
-    }
 })
 
 //creating one
@@ -47,7 +70,7 @@ router.post('/register', jsonParser, (req, res) => {
         const saltRounds = 10; // definiranje salt vrijednosti 
         bcrypt.genSalt(saltRounds, function(err, salt) { 
             bcrypt.hash(req.body.password, salt, function(err, hash) {
-                let user = new User({name: req.body.name, email: req.body.email, password: hash, role: req.body.role});
+                let user = new User({name: req.body.name, surname:req.body.surname, username:req.body.username,  email: req.body.email, password: hash, role: req.body.role});
                 user.save();
                 console.log(hash);
                 return res.json(user);

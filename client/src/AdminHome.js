@@ -4,19 +4,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navigate, useLocation,useNavigate } from 'react-router'
 
 
-const Home = () => {
+const AdminHome = () => {
     const [movies, setMovies] = useState([]);
     const [directors, setDirectors] = useState([]);
     const [mov, setMov] = useState([]);
     const navigate=useNavigate(); 
     const userId=localStorage.getItem("_id");
-    const role=localStorage.getItem("role");
 
     if (localStorage.getItem("token") === null){
         window.location.href = '/login'; // ako nema tokena vratit korisnika na prijavu
     }
     console.log(userId);
-    console.log(role);
     async function getMovies(){
         const options = {headers:{
             Authorization: "Bearer " + localStorage.getItem("token")
@@ -56,15 +54,11 @@ const Home = () => {
 
     return(
 
-
-         <div>{(role==="admin") ? <Navigate to ="/AdminHome"/> :
-         <div className='container justify-content-center'>
-        <button text="Login"  onClick={()=>navigate("/Login")}>Login</button>
-        <button text="SignUp"  onClick={()=>navigate("/Register")}>Register</button>
-        <button onClick={()=>navigate(`/EditUser/${userId}`)}>Edit profile</button>
+        
+        <div className='container justify-content-center'>
         <button text="Logout" onClick={()=>navigate("/Logout")}>Logout</button> 
          
-            
+            <div>adminnn</div>
                 { Object.keys(movies).map((it) => {
                 return (
                     <div className="row">
@@ -74,12 +68,9 @@ const Home = () => {
                 )
                 
                 })}
-        </div>}</div>
-
-
-        
+        </div>
     )
 
 }
 
-export default Home;
+export default AdminHome;
