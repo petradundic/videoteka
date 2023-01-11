@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const EditMovie = () => {
+const EditUser = () => {
     let navigate = useNavigate();
     const params = useParams();
     const userID = localStorage.getItem("_id");
@@ -23,7 +23,7 @@ const EditMovie = () => {
         const options = {headers:{
             Authorization: "Bearer " + localStorage.getItem("token")
         }};
-        const userList = await fetch(`http://localhost:3000/users/user/${params.id}`, options);
+        const userList = await fetch(`http://localhost:3001/users/user/${params.id}`, options);
         
         const userJson = await userList.json();
         console.log("USER", userJson)
@@ -67,7 +67,7 @@ const EditMovie = () => {
                 body: JSON.stringify(json)
             };
 
-            fetch(`http://localhost:3000/users/updateUser/${params.id}`,requestOptions)
+            fetch(`http://localhost:3001/users/updateUser/${params.id}`,requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 if (data.success){
@@ -98,4 +98,4 @@ const EditMovie = () => {
     )
 }
 
-export default EditMovie;
+export default EditUser;
