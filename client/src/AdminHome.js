@@ -56,7 +56,9 @@ const AdminHome = () => {
 
         
         <div className='container justify-content-center'>
-        <button text="Logout" onClick={()=>navigate("/Logout")}>Logout</button> 
+        <button text="Logout" onClick={()=>navigate("/Logout")}>Logout</button>
+        <button text="Users" onClick={()=>navigate("/Users")}>Users</button> 
+        <button text="AddMovie" onClick={()=>navigate("/AddMovie")}>AddMovie</button> 
          
             <div>adminnn</div>
                 { Object.keys(movies).map((it) => {

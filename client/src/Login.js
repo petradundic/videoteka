@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () =>{
+    const navigate=useNavigate(); 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const [isCorrect, setIsCorrect] = useState(true);
+    const [user, setUser]=useState("");
+    
 
-    let navigate = useNavigate();
+    
 
     function onChangeEmail(e) {
         setEmail(e.target.value);
@@ -17,6 +20,7 @@ const Login = () =>{
     function onChangePassword(e) {
         setPassword(e.target.value);
     }
+
     
     async function handleLogin(e) {
         e.preventDefault();
@@ -43,7 +47,7 @@ const Login = () =>{
                 });
                 localStorage.setItem("user", myuser);
                 let myuse = JSON.parse(localStorage.getItem("user"));
-                //setUser(myuse);
+                setUser(myuse);
                 navigate("/");
             } else {
                 setIsCorrect(false);
@@ -78,6 +82,12 @@ const Login = () =>{
             <button type="submit" className="btn btn-success btn-sm">Login</button><br/><br/>
             { !isCorrect ? (<div class="alert alert-danger" role="alert">User doesn't exist. Incorrect { message }.</div>) : null }
         </form>
+
+
+       
+         
+         
+    
     </div>
     )
 };
