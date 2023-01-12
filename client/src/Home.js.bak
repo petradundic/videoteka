@@ -27,6 +27,7 @@ const Home = () => {
 
         const movieJson = await movieList.json();
 
+        //console.log("Chocolates", chocolateJson.chocolates);
         setMovies(movieJson.movies);
         console.log("MOVIES: ", movieJson);
     }
@@ -68,7 +69,7 @@ const Home = () => {
                 { Object.keys(movies).map((it) => {
                 return (
                     <div className="row">
-                         <Movie id = { movies[it]._id } image = { movies[it].image } name = { movies[it].name } genre = { movies[it].genre }  format = { movies[it].format } year = { movies[it].year } oscar = { movies[it].oscar } director = { movies[it].director_id} />
+                         <Movie id = { movies[it]._id } image = { movies[it].image } name = { movies[it].name } genre = { movies[it].genre }  format = { movies[it].format } year = { movies[it].year } oscar = { movies[it].oscar } director = { movies[it].director} />
                                     
                     </div>
                 )
