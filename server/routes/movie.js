@@ -8,6 +8,8 @@ const express = require('express');
 const movieRouter = express.Router();
 const mongoose = require("mongoose");
 
+ mongoose.connect('mongodb://localhost:27017/moviesDB')  // promijenit ime baze!!
+const db = mongoose.connection
 
 
 movieRouter.get('/movies'/*, verifyJwt, cors()*/, (req, res)=>{

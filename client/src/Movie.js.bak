@@ -38,7 +38,7 @@ const Movie = (props) => {
 
   useEffect(() => {
     getMovie();
-    getDirector();
+    //getDirector();
 }, []);
 
 
