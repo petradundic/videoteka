@@ -20,10 +20,6 @@ import MovieDetails from './MovieDetails';
 import EditUser from './EditUser';
 import AdminHome from './AdminHome';
 import Users from  './Users';
-import AddActor from './addActor';
-import EditActor from './EditActor';
-import Actor from './Actor';
-
 function App() {
   return (
     <Router>
@@ -42,9 +38,6 @@ function App() {
             <Route path="/EditUser/:id" element={<EditUser />} />
             <Route path="/AdminHome" element={<AdminHome />} />
             <Route path="/Users" element={<Users />} />
-			      <Route path="/actors" element={<Actor />} />
-            <Route path="/addActor" element={<AddActor />} />
-            <Route path="/editActor/:id" element={<EditActor />} />
           </Routes>
         </Router>
   );
