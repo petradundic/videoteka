@@ -12,9 +12,34 @@ const Movie = (props) => {
   const [userName, setUserName] = useState("");
   const [director, setDirector] = useState("");
 
+
   if (localStorage.getItem("token") === null){
     window.location.href = '/login'; // ako nema tokena vratit korisnika na prijavu
   }
+
+
+  function handleClickAdd(movie) {
+    var today = new Date();
+    var returnDate = new Date(new Date().setDate(today.getDate() + 30));
+
+    console.log(today)
+    console.log(returnDate); 
+    const movieId=movie._id;
+   
+    
+    fetch("http://localhost:3000/movies/addBorrowMovies", {
+            method: "POST",
+            body: JSON.stringify({movie_id:movieId,user_id:userId,takenDate:today, returnDate:returnDate}
+            ),
+            headers: {"Content-type": "application/json;charset=UTF-8"}
+            
+        })
+        .then((resp)=>resp.json())
+        .then((data)=>{   
+         console.log("borrowed movie:   " ,data);  
+        })
+        .catch((err)=>console.log(err));
+  };
 
   async function getMovie(){
     const options = {headers:{
@@ -86,7 +111,7 @@ const Movie = (props) => {
             <button className="btn btn-primary btn-sm m-1">Edit</button></Link>
             <button className="btn btn-danger btn-sm m-1" onClick={deleteMovie}>Delete</button><br/><br/><br/>
          </div>
-        ) : <div></div>
+        ) : (<div class="text-center"><button className="btn btn-primary btn-sm m-1" onClick={()=>handleClickAdd(movie)}>Posudi</button></div>)
     }
     <br/><br/><br/>
     </div>
