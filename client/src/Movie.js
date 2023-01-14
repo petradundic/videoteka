@@ -11,6 +11,7 @@ const Movie = (props) => {
   const [userId, setUserId] = useState();
   const [userName, setUserName] = useState("");
   const [director, setDirector] = useState("");
+  const [hidden, setHidden] = useState(false);
 
 
   if (localStorage.getItem("token") === null){
@@ -25,7 +26,8 @@ const Movie = (props) => {
     console.log(today)
     console.log(returnDate); 
     const movieId=movie._id;
-   
+
+    setHidden(true);
     
     fetch("http://localhost:3000/movies/addBorrowMovies", {
             method: "POST",
@@ -39,7 +41,10 @@ const Movie = (props) => {
          console.log("borrowed movie:   " ,data);  
         })
         .catch((err)=>console.log(err));
+
+        
   };
+
 
   async function getMovie(){
     const options = {headers:{
@@ -111,7 +116,7 @@ const Movie = (props) => {
             <button className="btn btn-primary btn-sm m-1">Edit</button></Link>
             <button className="btn btn-danger btn-sm m-1" onClick={deleteMovie}>Delete</button><br/><br/><br/>
          </div>
-        ) : (<div class="text-center"><button className="btn btn-primary btn-sm m-1" onClick={()=>handleClickAdd(movie)}>Posudi</button></div>)
+        ) : (<div class="text-center"><button className="btn btn-primary btn-sm m-1" hidden={hidden} onClick={()=>handleClickAdd(movie)}>Posudi</button></div>)
     }
     <br/><br/><br/>
     </div>
