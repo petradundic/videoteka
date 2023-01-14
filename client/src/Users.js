@@ -10,7 +10,7 @@ export const Users = () =>{
 
 const getApiData = async () => {
   const response = await fetch(
-    "http://localhost:3001/users/users"
+    "http://localhost:3000/users/users"
   ).then((response) => response.json());
    console.log("apidata", response)
   setUsers(response);
@@ -47,7 +47,7 @@ useEffect(() => {
             <div key={item._id}>
                 <div key={item._id}>{item.username}</div>
                 <button text="Delete" onClick={()=>{
-                    const url=`http://localhost:3001/users/${item._id}`;
+                    const url=`http://localhost:3000/users/${item._id}`;
                     fetch(url, {method: 'DELETE' }).then(() => {
                       window.location.reload();
                     })

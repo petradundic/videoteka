@@ -63,6 +63,7 @@ const Home = () => {
         <button text="SignUp"  onClick={()=>navigate("/Register")}>Register</button>
         <button onClick={()=>navigate(`/EditUser/${userId}`)}>Edit profile</button>
         <button text="Logout" onClick={()=>navigate("/Logout")}>Logout</button> 
+        <button onClick={()=>navigate(`/UserBorrowedMovies/${userId}`)}>Posudeni filmovi</button>
 
             
                 { Object.keys(movies).map((it) => {

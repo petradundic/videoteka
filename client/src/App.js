@@ -23,6 +23,8 @@ import Users from  './Users';
 import AddActor from './addActor';
 import EditActor from './EditActor';
 import Actor from './Actor';
+import UserBorrowedMovies from './UserBorrowedMovies';
+import BorrowAdmin from './BorrowAdmin';
 
 function App() {
   return (
@@ -45,6 +47,8 @@ function App() {
 			      <Route path="/actors" element={<Actor />} />
             <Route path="/addActor" element={<AddActor />} />
             <Route path="/editActor/:id" element={<EditActor />} />
+            <Route path="/UserBorrowedMovies/:id" element={<UserBorrowedMovies />} />
+            <Route path="/BorrowedMovies" element={<BorrowAdmin />} />
           </Routes>
         </Router>
   );
