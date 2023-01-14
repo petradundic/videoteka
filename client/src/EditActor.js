@@ -13,6 +13,8 @@ const EditActor = () => {
     const [isCorrect, setIsCorrect] = useState(true);
     const [message, setMessage] = useState("");
     const [actor, setActor] = useState("");
+    
+
 
     async function getActor(){
         const options = {headers:{

@@ -48,8 +48,9 @@ const MovieDetails = () => {
             <p><b>Director: </b>{director}</p>
             <p><b>Year: </b>{movie.year}</p>
             <p><b>Oscar: </b>{movie.oscar}</p>
-
+            <p><b>Actors: </b>{movie.actors}</p>
             
+
             </div>
             <div className="col-6">
             <img src={movie.image} class="mw-100 mh-100"/><br/>
