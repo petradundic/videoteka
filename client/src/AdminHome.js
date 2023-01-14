@@ -64,15 +64,17 @@ const AdminHome = () => {
         <button className="btn btn-outline-secondary" text="AddMovie" onClick={()=>navigate("/AddMovie")}>AddMovie</button> 
          
             <div>adminnn</div>
+                <div className="row">
                 { Object.keys(movies).map((it) => {
                 return (
-                    <div className="row">
+                    
                          <Movie id = { movies[it]._id } image = { movies[it].image } name = { movies[it].name } genre = { movies[it].genre }  format = { movies[it].format } year = { movies[it].year } oscar = { movies[it].oscar } director = { movies[it].director_id} />
                                     
-                    </div>
+                   
                 )
                 
                 })}
+                 </div>
         </div>
     )
 
