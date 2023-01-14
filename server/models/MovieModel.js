@@ -11,6 +11,7 @@ const movieModel = new mongoose.Schema(
         year:{type:String},
         actors: {type : Array , "default" : []},
         oscar:{type:String},
+        timesBorrowed:{type:Number, "default" : 0}
     }
 )
 
