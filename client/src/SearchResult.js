@@ -103,16 +103,17 @@ const SearchResult = () => {
         
         <div className='container justify-content-center'>
             
-            
+             <div className="row">
                 { searchResult.length == 0 ? <p>No results!</p> :  
                 Object.keys(searchResult).map((it) => {
                     return (
-                        <div className="row">
+                       
                             <Movie id = { searchResult[it]._id } image = { searchResult[it].image } name = { searchResult[it].name } genre = { searchResult[it].genre }  format = { searchResult[it].format } year = { searchResult[it].year } oscar = { searchResult[it].oscar } director = { searchResult[it].director_id} />
                                         
-                        </div>
+                       
                     )
                 })}
+                 </div>
         </div>
         </div>
     )
