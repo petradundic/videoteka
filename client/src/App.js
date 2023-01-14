@@ -26,6 +26,8 @@ import Actor from './Actor';
 import UserBorrowedMovies from './UserBorrowedMovies';
 import BorrowAdmin from './BorrowAdmin';
 import SearchResult from './SearchResult';
+import PopularMovies from './PopularMovies';
+import NeverBorrowed from './NeverBorrowed';
 
 function App() {
   return (
@@ -51,6 +53,8 @@ function App() {
             <Route path="/UserBorrowedMovies/:id" element={<UserBorrowedMovies />} />
             <Route path="/BorrowedMovies" element={<BorrowAdmin />} />
             <Route path="/searchResult/:search" element={<SearchResult />} />
+            <Route path="/popularMovies" element={<PopularMovies />} />
+            <Route path="/neverBorrowed" element={<NeverBorrowed />} />
           </Routes>
         </Router>
   );

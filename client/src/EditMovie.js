@@ -24,6 +24,7 @@ const EditMovie = () => {
     const [actor, setActor] = useState("");
     const [finalActors, setFinalActors] = useState([]);
     const [prevActors, setPrevActors] = useState([]);
+    const [timesBorrowed, setTimesBorrowed] = params.timesBorrowed;
     const genreArray = ["Drama", "Action", "Thriller", "Crime", "Western", "Horror","Music", "Comedy", "Fantasy", "History", "Mystery", "Adventure", "Noir", "Romance" ]
     
 
@@ -90,7 +91,8 @@ const EditMovie = () => {
                 year: year,
                 oscar: oscar,
                 director_id: director, 
-                actors: prevActors
+                actors: prevActors,
+                timesBorrowed:timesBorrowed
             }
 
             const requestOptions = {
@@ -117,7 +119,6 @@ const EditMovie = () => {
         <div className="container">
             <form>
             <label for="name">Name: </label><input type="text" defaultValue = {movie.name}  className="form-control" id="name"  onChange={(e) => setName(e.target.value)} /><br/>
-            <label for="genre">Genre: </label><input type="text" defaultValue = {movie.genre} className="form-control" id="genre" onChange={(e) => setGenre(e.target.value)} /><br/>
             <label for="image">Image url: </label><input type="text" defaultValue = {movie.image} className="form-control" id="image" onChange={(e) => setImage(e.target.value)} /><br></br>
             <label for="duration">Duration: </label><input type="text" defaultValue = {movie.duration} className="form-control" id="duration" onChange={(e) => setDuration(e.target.value)} /><br/>
             <label for="format">Format: </label><input type="text" defaultValue = {movie.format} className="form-control" id="format"  onChange={(e) => setFormat(e.target.value)} /><br />
