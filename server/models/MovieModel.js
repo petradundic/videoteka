@@ -9,6 +9,7 @@ const movieModel = new mongoose.Schema(
         format:{type:String},
         director_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Director', required: true},
         year:{type:String},
+        actors: {type : Array , "default" : []},
         oscar:{type:String},
     }
 )
