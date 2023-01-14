@@ -2,12 +2,14 @@ import React, {useContext, useState, useEffect} from 'react';
 import Movie from './Movie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navigate, useLocation,useNavigate } from 'react-router'
-
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [movies, setMovies] = useState([]);
     const [directors, setDirectors] = useState([]);
     const [mov, setMov] = useState([]);
+    const [search, setSearch] = useState("");
+    const [searchResult, setSearchResult] = useState([]);
     const navigate=useNavigate(); 
     const userId=localStorage.getItem("_id");
     const role=localStorage.getItem("role");
@@ -16,6 +18,12 @@ const Home = () => {
     if (localStorage.getItem("token") === null){
         window.location.href = '/login'; // ako nema tokena vratit korisnika na prijavu
     }
+
+    function onChangeSearch(e) {
+        setSearch(e.target.value);
+      }
+
+
     console.log(userId);
     console.log(role);
     async function getMovies(){
@@ -45,6 +53,14 @@ const Home = () => {
         
     }
 
+    async function getData(search){
+        const data = await fetch(`http://127.0.0.1:3000/movies/moviesByGenre/${search}`);
+        const dataJson = await data.json();
+        console.log("INFO", dataJson);
+        setSearchResult(dataJson);
+        
+    }
+
     useEffect(() => {
         getMovies();
       }, []);
@@ -56,6 +72,21 @@ const Home = () => {
 
     return(
 
+        <div className='container'>
+            <form className="example" onSubmit={(e) => {getData(e);}}>
+                <div className="form-group col-md-6 form-check-inline">
+                    <input
+                        type="text"
+                        value={search} className="form-control" 
+                        placeholder="Search by genre"
+                        onChange={onChangeSearch}
+                        onBlur={onChangeSearch}
+                    ></input>
+                    <Link to={`/searchResult/${search}`}><button type="submit" className="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg></button></Link>
+            </div>
+            </form>
 
          <div>{(role==="admin") ? <Navigate to ="/AdminHome"/> :
          <div className='container justify-content-center'>
@@ -77,6 +108,7 @@ const Home = () => {
                 })}
         </div>}</div>
 
+    </div>
 
         
     )

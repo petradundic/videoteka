@@ -9,7 +9,7 @@ const movieRouter = express.Router();
 const mongoose = require("mongoose");
 
 
-const db = mongoose.connect('mongodb://127.0.0.1:27017/agilno', {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}).then(res=>console.log("Connected!")).catch(err=>console.log("Error", err.message)); // my database collection
+const db = mongoose.connect('mongodb://127.0.0.1:27017/moviesDB', {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}).then(res=>console.log("Connected!")).catch(err=>console.log("Error", err.message)); // my database collection
 const port = process.env.PORT || 3000
 const base = mongoose.connection;
 
@@ -62,6 +62,57 @@ movieRouter.get('/moviesByGenre/:movieGenre'/*, verifyJwt*/, (req, res)=>{
             res.json(movies)
         }
     })
+})
+
+movieRouter.get('/moviesByFormat/:movieFormat'/*, verifyJwt*/, (req, res)=>{
+    Movie.find({format:req.params.movieFormat}, (err, movies)=>{
+        console.log(req.params.movieFormat)
+        if(err){
+            res.send(err) 
+        }
+        else{
+            res.json(movies)
+        }
+    })
+})
+
+movieRouter.get('/moviesByDuration/:movieDuration'/*, verifyJwt*/, (req, res)=>{
+    Movie.find({duration:req.params.movieDuration}, (err, movies)=>{
+        console.log(req.params.movieDuration)
+        if(err){
+            res.send(err) 
+        }
+        else{
+            console.log("DUR:", movies)
+            res.json(movies)
+        }
+    })
+})
+
+movieRouter.get('/moviesByDirector/:director_id'/*, verifyJwt*/, cors(), (req, res)=>{
+    var params = req.params.director_id.split(' ');
+    console.log("PARAMS12 ", params[0], params[1]);
+    Director.find({name:params[0], surname:params[1]}, (err, director)=>{
+       
+        if(err){
+            res.send(err)
+        }
+        else{
+            console.log("D: ", director)
+            Movie.find({director_id:director[0]._id}, (err, movies)=>{
+                console.log(req.params.director_id)
+                if(err){
+                    res.send(err)
+                }
+                else{
+                    console.log(movies);
+                    res.json(movies)
+                }
+            })
+        }
+    })
+    
+
 })
 
 movieRouter.post('/addMovie', cors(), (req, res)=>{

@@ -15,6 +15,10 @@ const AddMovie = () => {
     const [oscar, setOscar] = useState("");
     const [isCorrect, setIsCorrect] = useState(true);
     const [message, setMessage] = useState("");
+    const [movieGenre, setMovieGenre] = useState("");
+    const [actors, setActors] = useState([]);
+    const [actor, setActor] = useState("");
+    const [finalActors, setFinalActors] = useState([]);
 
     async function getDirector(){
         const options = {headers:{
@@ -27,10 +31,23 @@ const AddMovie = () => {
         setDirectors(directorJson.directors);
     }
 
+    async function getActors(){
+        const options = {headers:{
+            Authorization: "Bearer " + localStorage.getItem("token")
+        }};
+
+        const actorList = await fetch(`http://localhost:3000/movies/actors`, options);
+        const actorJson = await actorList.json();
+        console.log(actorJson);
+        setActors(actorJson.actors);
+    }
+
     useEffect(() => {
         getDirector();
+        getActors();
     }, []);
 
+    const genreArray = ["Drama", "Action", "Thriller", "Crime", "Western", "Horror","Music", "Comedy", "Fantasy", "History", "Mystery", "Adventure", "Noir", "Romance" ]
     async function addFormData(e){
         e.preventDefault();
         if ((name === "") || (image === "") || (genre == "") || (duration === "") || (format === "") || (year === "") || (director === "") ){
@@ -42,12 +59,13 @@ const AddMovie = () => {
             const json = {
                 "name": name, 
                 "image": image,
-                "genre": genre,
+                "genre": movieGenre,
                 "duration": duration,
                 "format": format,
                 "year": year,
                 "director_id": director,
-                "oscar": oscar
+                "oscar": oscar,
+                "actors": finalActors
             }
 
             const requestOptions = {
@@ -82,12 +100,32 @@ const AddMovie = () => {
                 <input type="text" value = {year} className="form-control" id="year" placeholder="Enter Year" onChange={(e) => setYear(e.target.value)} required /><br />
                 <input type="text" value = {oscar} className="form-control" id="oscar" placeholder="Enter oscar" onChange={(e) => setOscar(e.target.value)} required /><br />
                 
+                <label> Genre:
+                    <select className="m-2" value={movieGenre} onChange={(e) => {setMovieGenre(e.target.value); console.log("G",{movieGenre})}} required>
+                    <option>All</option>
+                    { Object.keys(genreArray).map((item) => (
+                        <option value={genreArray[item]}>{genreArray[item]}</option>
+                    ))}
+                   
+                    </select>
+                    
+                </label><br/><br/>
                 
                 <label> Director:
                     <select className="m-2" value={director} onChange={(e) => {setDirector(e.target.value); console.log("D",{director})}} required>
                     <option>All</option>
                     { Object.keys(directors).map((item) => (
                         <option value={directors[item]._id}>{directors[item].name} {directors[item].surname}</option>
+                    ))}
+                   
+                    </select>
+                    
+                </label><br/><br/>
+                <label> Add actors on movie:
+                    <select className="m-2" value={actor} onChange={(e) => {setActor(e.target.value); console.log("D",{director}); finalActors.push(actor + " ");console.log("ACTORS", finalActors)}} required>
+                    <option>All</option>
+                    { Object.keys(actors).map((item) => (
+                        <option value={actors[item].name + " " + actors[item].surname}>{actors[item].name} {actors[item].surname}</option>
                     ))}
                    
                     </select>
