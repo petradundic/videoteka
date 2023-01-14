@@ -57,6 +57,7 @@ const AdminHome = () => {
         
         <div className='container justify-content-center'>
         <button text="Logout" onClick={()=>navigate("/Logout")}>Logout</button>
+        <button text="Posudeni filmovi" onClick={()=>navigate("/BorrowedMovies")}>Posudeni filmovi</button>
         <button text="Users" onClick={()=>navigate("/Users")}>Users</button> 
         <button text="AddMovie" onClick={()=>navigate("/AddMovie")}>AddMovie</button> 
          
