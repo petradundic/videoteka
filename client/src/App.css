@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+/* Style the search field */
+form.example input[type="text"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Clear floats */
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.h2 {
+  color: blue;
+}

@@ -1,5 +1,6 @@
 import React, {useEffect,useState} from 'react'
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const Users = () =>{
@@ -40,26 +41,38 @@ useEffect(() => {
 },[users]);
 
   return (
-    <div>
-         
+    <div className='container justify-content-center'>
+      <br/>
+        <button text="Home" className="btn btn-outline-secondary" onClick={()=>navigate("/")}>Home</button> 
+        <button text="Logout" className="btn btn-outline-secondary" onClick={()=>navigate("/Logout")}>Logout</button>
+        <button text="Posudeni filmovi" className="btn btn-outline-secondary" onClick={()=>navigate("/BorrowedMovies")}>Posudeni filmovi</button>
+        <button text="AddMovie" className="btn btn-outline-secondary" onClick={()=>navigate("/AddMovie")}>AddMovie</button> 
+        <button text="AddDirector" className="btn btn-outline-secondary" onClick={()=>navigate("/AddDirector")}>AddDirector</button>
+        <button text="AddActor" className="btn btn-outline-secondary" onClick={()=>navigate("/AddActor")}>AddActor</button>  
+        <button text="AddUser" className="btn btn-outline-secondary" onClick={()=>navigate("/Register")}>AddUser</button>
+      <br/><br/>
+        {users ? users.map((item) => (
+            
+                <div className="row" key={item._id}>
+                  <div className='col-2'><p class="p-1">{item.username}  </p> </div>
+                  <div className='col-1'><p class="p-1"><button className="btn btn-danger" text="Delete" onClick={()=>{
+                        const url=`http://localhost:3000/users/${item._id}`;
+                        fetch(url, {method: 'DELETE' }).then(() => {
+                          window.location.reload();
+                        })
 
-        {users ? users.map((item, index) => (
-            <div key={item._id}>
-                <div key={item._id}>{item.username}</div>
-                <button text="Delete" onClick={()=>{
-                    const url=`http://localhost:3000/users/${item._id}`;
-                    fetch(url, {method: 'DELETE' }).then(() => {
-                      window.location.reload();
-                    })
+                    }}>Delete</button></p></div> 
+                    <div className='col-6'><p class="p-1">
+                    <Link to={`/editUser/${item._id}`} className="text-decoration-none"><button className="btn btn-success" text="Edit">
+                      
+                    Edit</button></Link></p></div> 
+                    
 
-                }}>Delete</button> 
-
-            </div>
+                </div>
               
         )):""}
 
-        
-        <button className ='Add' onClick={()=>navigate("/Register")}>Add User</button>
+        <br/>
 
         
     </div>

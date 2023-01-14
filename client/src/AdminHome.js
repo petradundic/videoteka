@@ -56,16 +56,18 @@ const AdminHome = () => {
 
         
         <div className='container justify-content-center'>
-        <button text="Logout" onClick={()=>navigate("/Logout")}>Logout</button>
-        <button text="Posudeni filmovi" onClick={()=>navigate("/BorrowedMovies")}>Posudeni filmovi</button>
-        <button text="Users" onClick={()=>navigate("/Users")}>Users</button> 
-        <button text="AddMovie" onClick={()=>navigate("/AddMovie")}>AddMovie</button> 
+        <button className="btn btn-outline-secondary" text="Logout" onClick={()=>navigate("/Logout")}>Logout</button>
+        <button className="btn btn-outline-secondary" text="Posudeni filmovi" onClick={()=>navigate("/BorrowedMovies")}>Posudeni filmovi</button>
+        <button className="btn btn-outline-secondary" onClick={()=>navigate("/popularMovies")}>Popularni</button>
+        <button className="btn btn-outline-secondary" onClick={()=>navigate("/neverBorrowed")}>Nikad posudeni</button>
+        <button className="btn btn-outline-secondary"  text="Users" onClick={()=>navigate("/Users")}>Users</button> 
+        <button className="btn btn-outline-secondary" text="AddMovie" onClick={()=>navigate("/AddMovie")}>AddMovie</button> 
          
             <div>adminnn</div>
                 { Object.keys(movies).map((it) => {
                 return (
                     <div className="row">
-                         <Movie id = { movies[it]._id } image = { movies[it].image } name = { movies[it].name } genre = { movies[it].genre }  format = { movies[it].format } year = { movies[it].year } oscar = { movies[it].oscar } director = { movies[it].director} />
+                         <Movie id = { movies[it]._id } image = { movies[it].image } name = { movies[it].name } genre = { movies[it].genre }  format = { movies[it].format } year = { movies[it].year } oscar = { movies[it].oscar } director = { movies[it].director_id} />
                                     
                     </div>
                 )

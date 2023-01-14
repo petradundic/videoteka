@@ -42,9 +42,44 @@ const Movie = (props) => {
         })
         .catch((err)=>console.log(err));
 
-        
+        updateMovie(movie);
   };
 
+  async function updateMovie(movie)
+      {
+        
+
+            const json = {
+                name: movie.name, 
+                genre: movie.genre,
+                image: movie.image,
+                duration: movie.duration,
+                format: movie.format,
+                year: movie.year,
+                oscar: movie.oscar,
+                director_id: movie.director, 
+                actors: movie.prevActors,
+                timesBorrowed:movie.timesBorrowed+1
+            }
+
+            const requestOptions = {
+                method: 'PUT',
+                headers:{ 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+                body: JSON.stringify(json)
+            };
+
+            fetch(`http://localhost:3000/movies/updateMovie/${movie._id}`,requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.success){
+                    navigate("/");
+                } else {
+                    console.log("Incorrect data!")
+                }
+            })
+      }
 
   async function getMovie(){
     const options = {headers:{

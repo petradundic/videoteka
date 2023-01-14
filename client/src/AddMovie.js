@@ -19,6 +19,7 @@ const AddMovie = () => {
     const [actors, setActors] = useState([]);
     const [actor, setActor] = useState("");
     const [finalActors, setFinalActors] = useState([]);
+    const [timesBorrowed, setTimesBorrowed] = 0;
 
     async function getDirector(){
         const options = {headers:{
@@ -65,7 +66,8 @@ const AddMovie = () => {
                 "year": year,
                 "director_id": director,
                 "oscar": oscar,
-                "actors": finalActors
+                "actors": finalActors,
+                "timesBorrowed":timesBorrowed
             }
 
             const requestOptions = {
@@ -93,7 +95,6 @@ const AddMovie = () => {
         <div className="container">
             <form>
                 <input type="text" value = {name} className="form-control" id="name" placeholder="Enter Movie Name" onChange={(e) => setName(e.target.value)} required /><br/>
-                <input type="text"  value = {genre} className="form-control" id="genre" placeholder="Enter Movie Genre" onChange={(e) => setGenre(e.target.value)} required /><br/>
                 <input type="text" value = {image} className="form-control" id="image" placeholder="Enter Movie Image Url" onChange={(e) => setImage(e.target.value)} required /><br></br>
                 <input type="text" value = {duration} className="form-control" id="duration" placeholder="Enter Duration" onChange={(e) => setDuration(e.target.value)} required /><br/>
                 <input type="text" value = {format} className="form-control" id="format" placeholder="Enter Format" onChange={(e) => setFormat(e.target.value)} required /><br />
