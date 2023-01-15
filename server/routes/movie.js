@@ -362,12 +362,10 @@ movieRouter.get('/borrowMoviesByUser/:user_id'/*, verifyJwt*/, cors(), (req, res
 
 movieRouter.get('/borrowMovie/:movie_id'/*, verifyJwt*/, cors(), (req, res)=>{
     Borrow.find({movie_id:req.params.movie_id}, (err, movies)=>{
-        console.log(req.params.movie_id)
         if(err){
             res.send(err)
         }
         else{
-            console.log("movies", movies);
             res.json(movies)
         }
     })
@@ -386,7 +384,7 @@ movieRouter.post('/addBorrowMovies/', cors(), (req, res)=>{
 })
 
 movieRouter.delete('/deleteBorrow/:id', cors(), (req, res)=>{
-    Borrow.remove({_id:req.params.id}, (err, borrow)=>{
+    Borrow.remove({movie_id:req.params.id}, (err, actor)=>{
         if(err){
              return res.json({error: "can't add"})
         }

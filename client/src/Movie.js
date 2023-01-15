@@ -12,6 +12,8 @@ const Movie = (props) => {
   const [userName, setUserName] = useState("");
   const [director, setDirector] = useState("");
   const [hidden, setHidden] = useState(false);
+  const [borrows, setBowrrows] = useState([]);
+  const [flag, setFlag] = useState(false);
 
 
   if (localStorage.getItem("token") === null){
@@ -101,10 +103,28 @@ const Movie = (props) => {
     setDirector(directorJson);
   }
 
+  async function getBorrowFilm(){
+    const borrowList = await fetch(`http://localhost:3000/movies/borrowMovie/${props.id}`);
+    const borrowJson = await borrowList.json();
+    console.log("Borrows: ", borrowJson);
+    setBowrrows(borrowJson);
+    console.log("USer", JSON.parse(localStorage.getItem("user")).id)
+
+    borrows.map((item) => {
+        console.log("ITEEEEEM:", item)
+        if (item.user_id === JSON.parse(localStorage.getItem("user")).id){
+            console.log("YES");
+            setFlag(true);
+        }
+    })
+  }
+
   useEffect(() => {
-    getMovie();
-    getDirector();
-}, []);
+    getCurrent();
+        getMovie();
+        getDirector();
+        getBorrowFilm()
+    }, [borrows]);
 
 
   function getCurrent(){
@@ -113,6 +133,7 @@ const Movie = (props) => {
             setUserName(myuser.name);
             setRole(myuser.role);
             setUserId(myuser.id);
+            console.log("CURRENT: ", myuser.id)
         }
   }
 
@@ -132,7 +153,9 @@ const Movie = (props) => {
                     alert("Cannot delete!")
                 }
             })
-  }
+  };
+
+  
 
   useEffect(() => {
     getCurrent();
@@ -151,7 +174,12 @@ const Movie = (props) => {
             <button className="btn btn-primary btn-sm m-1">Edit</button></Link>
             <button className="btn btn-danger btn-sm m-1" onClick={deleteMovie}>Delete</button><br/><br/><br/>
          </div>
-        ) : (<div class="text-center"><button className="btn btn-primary btn-sm m-1" hidden={hidden} onClick={()=>handleClickAdd(movie)}>Posudi</button></div>)
+        ) : (
+            
+               flag === true ?  "" : <div class="text-center"><button className="btn btn-primary btn-sm m-1" hidden={hidden} onClick={()=>handleClickAdd(movie)}>Posudi</button></div>
+            
+                
+        ) 
     }
     <br/><br/><br/>
     </div>

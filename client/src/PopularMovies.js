@@ -45,15 +45,17 @@ const PopularMovies = () => {
       }, [movies]);
 
 
+      movies.sort(function(a, b) {
+        return b.timesBorrowed - a.timesBorrowed;
+      });
+
+      movies.splice(5, movies.length);  // top 5
   return (
     <div>
 
          <h2>Popularni filmovi</h2>
-        <div>{popular ? popular.map((el,index) => (
+        <div>{movies.length > 0 ? movies.map((el,index) => (
               <p key={el._id}>{index+1}. {el.name} {el.timesBorrowed}</p>)) :""}
-            
-          
-         
         </div>
     </div>
   )

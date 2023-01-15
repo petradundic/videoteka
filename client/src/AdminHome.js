@@ -63,7 +63,7 @@ const AdminHome = () => {
         <button className="btn btn-outline-secondary"  text="Users" onClick={()=>navigate("/Users")}>Users</button> 
         <button className="btn btn-outline-secondary" text="AddMovie" onClick={()=>navigate("/AddMovie")}>AddMovie</button> 
          
-            <div>adminnn</div>
+            <div >
                 { Object.keys(movies).map((it) => {
                 return (
                     <div className="row">
@@ -72,7 +72,7 @@ const AdminHome = () => {
                     </div>
                 )
                 
-                })}
+                })}</div>
         </div>
     )
 
